@@ -1,0 +1,57 @@
+name: Deploy TAG to Dev
+run-name: Deploy tag ${{ github.ref_name }} to Dev
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy_api:
+    runs-on: ubuntu-latest
+
+    env:
+      ANYPOINT_CLIENT_ID: ${{ secrets.ANYPOINT_CLIENT_ID }}
+      ANYPOINT_CLIENT_SECRET: ${{ secrets.ANYPOINT_CLIENT_SECRET }}
+      CONNECTEDAPP_CLIENT_ID: ${{ secrets.CONNECTEDAPP_CLIENT_ID }}
+      CONNECTEDAPP_CLIENT_SECRET: ${{ secrets.CONNECTEDAPP_CLIENT_SECRET }}
+      TARGET: ${{ secrets.TARGET }}
+      ORG_ID: ${{ secrets.ORG_ID }}
+      GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+      APP_NAME: "sapi-weather-app-dev"
+      ENV: "dev"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${PAT_TOKEN}
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Deploy to CloudHub 2.0
+        run: |
+          mvn deploy --settings .maven/settings.xml -DskipTests -DmuleDeploy \
+          -Dapp.name=${APP_NAME} \
+          -Denv=${ENV} \
+          -Dtarget=${TARGET} \
+          -Dclient.id="${CONNECTEDAPP_CLIENT_ID}" \
+          -Dclient.secret="${CONNECTEDAPP_CLIENT_SECRET}" \
+          -DanypointClientId=${ANYPOINT_CLIENT_ID} \
+          -DanypointClientSecret=${ANYPOINT_CLIENT_SECRET} \
+          -Dgit.username=${GIT_USERNAME} \
+          -Dpat.token=${PAT_TOKEN}
+
+      - name: Check deployment success
+        if: steps.deploy.outcome == 'success'
+        run: echo "✅ Deployment succeeded."
