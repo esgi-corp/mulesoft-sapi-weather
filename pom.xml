@@ -23,8 +23,8 @@
 		<mule.maven.plugin.version>4.3.0</mule.maven.plugin.version>
 
 		<!-- API deployment config -->
-		<replicas>1</replicas>
-        <vCores>0.2</vCores>
+		<replicas>${workers}</replicas>
+        <vCores>${vcores}</vCores>
 	</properties>
 
 	<build>

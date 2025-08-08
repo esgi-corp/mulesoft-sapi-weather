@@ -1,0 +1,101 @@
+name: Deploy branch to Sandbox
+run-name: Deploy branch ${{ github.ref_name }} to Sandbox
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Nom de la branche à déployer'
+        required: true
+        default: 'main'
+
+jobs:
+  deploy_api:
+    runs-on: ubuntu-latest
+
+    env:
+      ANYPOINT_CLIENT_ID: ${{ secrets.ANYPOINT_CLIENT_ID }}
+      ANYPOINT_CLIENT_SECRET: ${{ secrets.ANYPOINT_CLIENT_SECRET }}
+      CONNECTEDAPP_CLIENT_ID: ${{ secrets.CONNECTEDAPP_CLIENT_ID }}
+      CONNECTEDAPP_CLIENT_SECRET: ${{ secrets.CONNECTEDAPP_CLIENT_SECRET }}
+      TARGET: ${{ secrets.TARGET }}
+      GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+      APP_NAME: "sapi-weather-app-sandbox"
+      ENV: "sandbox"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Publish asset to Github
+        run: |
+          echo "📦 Publishing to Github..."
+            mvn clean deploy --settings .maven/settings.xml -DskipTests \
+              -DaltDeploymentRepository=github-mule-assets::default::https://maven.pkg.github.com/Nassim952/mule-assets \
+              -Dclient.id="$CONNECTEDAPP_CLIENT_ID" \
+              -Dclient.secret="$CONNECTEDAPP_CLIENT_SECRET" \
+              -Dgit.username=${GIT_USERNAME} \
+              -Dpat.token=${PAT_TOKEN}
+
+      - name: Publish asset to Exchange
+        run: |
+          echo "📦 Publishing to Exchange..."
+            mvn clean deploy --settings .maven/settings.xml -DskipTests \
+              -Dclient.id="$CONNECTEDAPP_CLIENT_ID" \
+              -Dclient.secret="$CONNECTEDAPP_CLIENT_SECRET" \
+              -Dgit.username=${GIT_USERNAME} \
+              -Dpat.token=${PAT_TOKEN}
+
+      - name: Deploy to CloudHub 2.0
+        run: |
+          mvn deploy --settings .maven/settings.xml -DskipTests -DmuleDeploy \
+          -Dapp.name=${APP_NAME} \
+          -Denv=${ENV} \
+          -Dtarget=${TARGET} \
+          -Dclient.id="${CONNECTEDAPP_CLIENT_ID}" \
+          -Dclient.secret="${CONNECTEDAPP_CLIENT_SECRET}" \
+          -DanypointClientId=${ANYPOINT_CLIENT_ID} \
+          -DanypointClientSecret=${ANYPOINT_CLIENT_SECRET} \
+          -Dgit.username=${GIT_USERNAME} \
+          -Dpat.token=${PAT_TOKEN}
+
+      - name: Check deployment success
+        if: steps.deploy.outcome == 'success'
+        run: echo "✅ Deployment succeeded."
+
+      - name: Extract version from pom.xml
+        id: extract_version
+        run: |
+          VERSION=$(grep -m 1 '<version>' pom.xml | sed -E 's/.*<version>([^<]+)<\/version>.*/\1/')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Create and push tag
+        run: |
+          TAG_NAME="cicd-devops-api-${VERSION}"
+
+          echo "🔍 Checking if tag $TAG_NAME already exists on remote..."
+
+          if git ls-remote --tags origin | grep -q "refs/tags/$TAG_NAME$"; then
+            echo "✅ Tag $TAG_NAME already exists. Skipping tag creation."
+          else
+            echo "🏷️ Creating and pushing tag $TAG_NAME..."
+            git tag $TAG_NAME
+            git push origin $TAG_NAME
+          fi

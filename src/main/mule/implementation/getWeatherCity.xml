@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="getWeatherCitySub_Flow" doc:id="0fcbb672-f65b-4e6d-b719-401ade014e91" >
+		<ee:transform doc:name="get uri params" doc:id="eee964f8-6066-442f-a74a-fce0c172084c" >
+			<ee:variables >
+				<ee:set-variable variableName="city" ><![CDATA[attributes.uriParams.'city']]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="weather output" doc:id="6f723aab-0863-48f5-9c34-20f0f3cdb9f8" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  coord: {
+    lon: 7.367,
+    lat: 45.133
+  },
+  weather: [
+    {
+      id: 501,
+      main: "Rain",
+      description: "moderate rain",
+      icon: "10d"
+    }
+  ],
+  base: "stations",
+  main: {
+    temp: 284.2,
+    feels_like: 282.93,
+    temp_min: 283.06,
+    temp_max: 286.82,
+    pressure: 1021,
+    humidity: 60,
+    sea_level: 1021,
+    grnd_level: 910
+  }
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>
