@@ -1,4 +1,4 @@
-name: Deploy branch to Sandbox
+name: No build and deploy to Cloudhub
 run-name: Deploy branch ${{ github.ref_name }} to Sandbox
 
 on:
