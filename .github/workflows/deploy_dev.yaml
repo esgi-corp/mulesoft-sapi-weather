@@ -14,7 +14,6 @@ jobs:
       CONNECTEDAPP_CLIENT_ID: ${{ secrets.CONNECTEDAPP_CLIENT_ID }}
       CONNECTEDAPP_CLIENT_SECRET: ${{ secrets.CONNECTEDAPP_CLIENT_SECRET }}
       TARGET: ${{ secrets.TARGET }}
-      ORG_ID: ${{ secrets.ORG_ID }}
       GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
       PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
       APP_NAME: "sapi-weather-app-dev"
