@@ -17,6 +17,8 @@ jobs:
       GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
       PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
       APP_NAME: "sapi-weather-app-dev"
+      WORKERS: ${{ vars.WORKERS }}
+      VCORES: ${{ vars.VCORES }}
       ENV: "dev"
 
     steps:
@@ -49,6 +51,8 @@ jobs:
           -DanypointClientId=${ANYPOINT_CLIENT_ID} \
           -DanypointClientSecret=${ANYPOINT_CLIENT_SECRET} \
           -Dgit.username=${GIT_USERNAME} \
+          -Dworkers=${WORKERS} \
+          -Dvcores=${VCORES} \
           -Dpat.token=${PAT_TOKEN}
 
       - name: Check deployment success
