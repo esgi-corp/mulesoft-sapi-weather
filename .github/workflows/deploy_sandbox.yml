@@ -88,7 +88,7 @@ jobs:
 
       - name: Create and push tag
         run: |
-          TAG_NAME="cicd-devops-api-${VERSION}"
+          TAG_NAME="sapi-weather-app-${VERSION}"
 
           echo "🔍 Checking if tag $TAG_NAME already exists on remote..."
 
