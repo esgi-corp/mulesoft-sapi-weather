@@ -1,6 +1,2 @@
 api:
   id: "2595900"
-
-workers: "1"
-
-vcores: "0.1"
