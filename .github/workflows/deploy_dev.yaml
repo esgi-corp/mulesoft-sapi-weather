@@ -45,14 +45,14 @@ jobs:
           mvn deploy --settings .maven/settings.xml -DskipTests -DmuleDeploy \
           -Dapp.name=${APP_NAME} \
           -Denv=${ENV} \
+          -Dworkers=${WORKERS} \
+          -Dvcores=${VCORES} \
           -Dtarget=${TARGET} \
           -Dclient.id="${CONNECTEDAPP_CLIENT_ID}" \
           -Dclient.secret="${CONNECTEDAPP_CLIENT_SECRET}" \
           -DanypointClientId=${ANYPOINT_CLIENT_ID} \
           -DanypointClientSecret=${ANYPOINT_CLIENT_SECRET} \
           -Dgit.username=${GIT_USERNAME} \
-          -Dworkers=${WORKERS} \
-          -Dvcores=${VCORES} \
           -Dpat.token=${PAT_TOKEN}
 
       - name: Check deployment success
