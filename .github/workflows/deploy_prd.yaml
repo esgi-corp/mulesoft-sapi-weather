@@ -52,7 +52,7 @@ jobs:
           -DanypointClientSecret=${ANYPOINT_CLIENT_SECRET} \
           -Dgit.username=${GIT_USERNAME} \
           -Dworkers=${WORKERS} \
-          -Dvcores=${VCORES} \
+          -Dvirtual.cores=${VCORES} \
           -Dpat.token=${PAT_TOKEN}
 
       - name: Check deployment success
