@@ -23,7 +23,7 @@
 		<mule.maven.plugin.version>4.3.0</mule.maven.plugin.version>
 	</properties>
 
-	<build>
+	<!-- <build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -37,7 +37,7 @@
 				<extensions>true</extensions>
 			</plugin>
 		</plugins>
-	</build> 
+	</build> -->
 
 	<dependencies>
 		<dependency>
