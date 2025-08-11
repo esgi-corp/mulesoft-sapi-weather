@@ -46,7 +46,7 @@ jobs:
           -Dapp.name=${APP_NAME} \
           -Denv=${ENV} \
           -Dworkers=${WORKERS} \
-          -Dv.cores=${VCORES} \
+          -Dvirtual.cores=${VCORES} \
           -Dtarget=${TARGET} \
           -Dclient.id="${CONNECTEDAPP_CLIENT_ID}" \
           -Dclient.secret="${CONNECTEDAPP_CLIENT_SECRET}" \
