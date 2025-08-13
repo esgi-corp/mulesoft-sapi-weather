@@ -19,6 +19,7 @@ jobs:
       APP_NAME: "sapi-weather-app-dev"
       WORKERS: ${{ vars.WORKERS }}
       VCORES: ${{ vars.VCORES }}
+      MULE_KEY: ${{ secrets.DEV_MULE_KEY}}
       ENV: "dev"
 
     steps:
@@ -50,6 +51,7 @@ jobs:
           -Dtarget=${TARGET} \
           -Dclient.id="${CONNECTEDAPP_CLIENT_ID}" \
           -Dclient.secret="${CONNECTEDAPP_CLIENT_SECRET}" \
+          -Dmule.key=${MULE_KEY} \
           -DanypointClientId=${ANYPOINT_CLIENT_ID} \
           -DanypointClientSecret=${ANYPOINT_CLIENT_SECRET} \
           -Dgit.username=${GIT_USERNAME} \

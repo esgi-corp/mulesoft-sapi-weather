@@ -19,6 +19,7 @@ jobs:
       APP_NAME: "sapi-weather-app-prd"
       WORKERS: ${{ vars.WORKERS }}
       VCORES: ${{ vars.VCORES }}
+      MULE_KEY: ${{ secrets.PRD_MULE_KEY}}
       ENV: "prd"
 
     steps:
@@ -50,6 +51,7 @@ jobs:
           -Dclient.secret="${CONNECTEDAPP_CLIENT_SECRET}" \
           -DanypointClientId=${ANYPOINT_CLIENT_ID} \
           -DanypointClientSecret=${ANYPOINT_CLIENT_SECRET} \
+          -Dmule.key=${MULE_KEY} \
           -Dgit.username=${GIT_USERNAME} \
           -Dworkers=${WORKERS} \
           -Dvirtual.cores=${VCORES} \
