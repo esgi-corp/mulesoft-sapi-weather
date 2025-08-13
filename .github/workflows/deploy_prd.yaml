@@ -19,7 +19,7 @@ jobs:
       APP_NAME: "sapi-weather-app-prd"
       WORKERS: ${{ vars.WORKERS }}
       VCORES: ${{ vars.VCORES }}
-      MULE_KEY: ${{ secrets.MULE_KEY}}
+      MULE_KEY: ${{ secrets.PRD_MULE_KEY}}
       ENV: "prd"
 
     steps:

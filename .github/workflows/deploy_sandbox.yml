@@ -24,7 +24,7 @@ jobs:
       APP_NAME: "sapi-weather-app-sandbox"
       WORKERS: ${{ vars.WORKERS }}
       VCORES: ${{ vars.VCORES }}
-      MULE_KEY: ${{ secrets.MULE_KEY}}
+      MULE_KEY: ${{ secrets.SANDBOX_MULE_KEY}}
       ENV: "sandbox"
 
     steps:
