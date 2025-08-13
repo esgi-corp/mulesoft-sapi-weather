@@ -93,6 +93,13 @@ output application/json
         </error-handler>
     </flow>
     <flow name="get:\getCurrentWeather\(city):weather-sapi-config">
+		<ee:transform doc:name="setup baseurl" doc:id="02b9581b-f9a6-4818-871c-d751bc8da45e" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="baseUrl" ><![CDATA["http://api.openweathermap.org/geo/1.0/direct?q=" ++ attributes.uriParams.'city' ++ "&appid=" ++ p('secure::openWeatherApi.appid')]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
 		<flow-ref doc:name="Flow Reference" doc:id="28eaf71c-8c75-432d-ae48-aaecab9f1779" name="getWeatherCitySub_Flow"/>
     </flow>
 </mule>
