@@ -1,2 +1,6 @@
 api:
   id: "2595901"
+
+openWeatherApi:
+  baseUrl: "http://api.openweathermap.org"
+  basePath: "/geo/1.0/direct"
