@@ -17,5 +17,5 @@ jobs:
       branch: ${{ github.event.inputs.branch }}
       workers: ${{ vars.WORKERS }}
       vcores: ${{ vars.VCORES }} 
-      app_name: "sapi-weather-app-sandbox"
+      app_name: "sapi-weather-app"
     secrets: inherit

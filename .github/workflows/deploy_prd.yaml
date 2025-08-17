@@ -12,5 +12,5 @@ jobs:
       branch: ${{ github.ref_name }}
       workers: ${{ vars.WORKERS }}
       vcores: ${{ vars.VCORES }} 
-      app_name: "sapi-weather-app-prd"
+      app_name: "sapi-weather-app"
     secrets: inherit
