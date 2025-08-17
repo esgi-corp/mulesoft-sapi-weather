@@ -4,13 +4,13 @@
 
 	<groupId>b1c16c15-55a4-4b53-82a0-3cda1e356271</groupId>
 	<artifactId>sapi-weather-app</artifactId>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 	<packaging>mule-application</packaging>
 
 	<parent>
 		<groupId>com.esgi.mule</groupId>
 		<artifactId>mule-parent-pom</artifactId>
-		<version>1.0.5</version>
+		<version>1.0.6</version>
 	</parent>
 
 	<name>sapi-weather-app</name>
@@ -22,22 +22,6 @@
 		<app.runtime>4.9.0</app.runtime>
 		<mule.maven.plugin.version>4.3.0</mule.maven.plugin.version>
 	</properties>
-
-	<!-- <build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.2.0</version>
-			</plugin>
-			<plugin>
-				<groupId>org.mule.tools.maven</groupId>
-				<artifactId>mule-maven-plugin</artifactId>
-				<version>${mule.maven.plugin.version}</version>
-				<extensions>true</extensions>
-			</plugin>
-		</plugins>
-	</build> -->
 
 	<dependencies>
 		<dependency>
@@ -95,12 +79,12 @@
 		<repository>
 			<id>github-mule-parent-pom</id>
 			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/Nassim952/mule-parent-pom</url>
+			<url>https://maven.pkg.github.com/esgi-corp/mule-parent-pom</url>
 		</repository>
 		<repository>
 			<id>github-mule-assets</id>
 			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/Nassim952/mule-assets</url>
+			<url>https://maven.pkg.github.com/esgi-corp/mule-assets</url>
 		</repository>
 	</repositories>
 

@@ -6,57 +6,11 @@ on:
 
 jobs:
   deploy_api:
-    runs-on: ubuntu-latest
-
-    env:
-      ANYPOINT_CLIENT_ID: ${{ secrets.ANYPOINT_CLIENT_ID }}
-      ANYPOINT_CLIENT_SECRET: ${{ secrets.ANYPOINT_CLIENT_SECRET }}
-      CONNECTEDAPP_CLIENT_ID: ${{ secrets.CONNECTEDAPP_CLIENT_ID }}
-      CONNECTEDAPP_CLIENT_SECRET: ${{ secrets.CONNECTEDAPP_CLIENT_SECRET }}
-      TARGET: ${{ secrets.TARGET }}
-      GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
-      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-      APP_NAME: "sapi-weather-app-dev"
-      WORKERS: ${{ vars.WORKERS }}
-      VCORES: ${{ vars.VCORES }}
-      MULE_KEY: ${{ secrets.DEV_MULE_KEY}}
-      ENV: "dev"
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.PAT_TOKEN }}
-
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-maven-
-
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Deploy to CloudHub 2.0
-        run: |
-          mvn deploy --settings .maven/settings.xml -DskipTests -DmuleDeploy \
-          -Dapp.name=${APP_NAME} \
-          -Denv=${ENV} \
-          -Dworkers=${WORKERS} \
-          -Dvirtual.cores=${VCORES} \
-          -Dtarget=${TARGET} \
-          -Dclient.id="${CONNECTEDAPP_CLIENT_ID}" \
-          -Dclient.secret="${CONNECTEDAPP_CLIENT_SECRET}" \
-          -Dmule.key=${MULE_KEY} \
-          -DanypointClientId=${ANYPOINT_CLIENT_ID} \
-          -DanypointClientSecret=${ANYPOINT_CLIENT_SECRET} \
-          -Dgit.username=${GIT_USERNAME} \
-          -Dpat.token=${PAT_TOKEN}
-
-      - name: Check deployment success
-        if: steps.deploy.outcome == 'success'
-        run: echo "✅ Deployment succeeded."
+    uses: esgi-corp/mulesoft_cicd/.github/workflows/api_deploy.yaml@main
+    with:
+      env: dev
+      branch: ${{ github.ref_name }}
+      workers: ${{ vars.WORKERS }}
+      vcores: ${{ vars.VCORES }} 
+      app_name: "sapi-weather-app-dev"
+    secrets: inherit
