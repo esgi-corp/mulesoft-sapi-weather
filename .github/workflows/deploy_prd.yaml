@@ -13,4 +13,5 @@ jobs:
       workers: ${{ vars.WORKERS }}
       vcores: ${{ vars.VCORES }} 
       app_name: "sapi-weather-app"
+      repo_props_name: "mulesoft-sapi-weather-properties"
     secrets: inherit
