@@ -11,9 +11,9 @@ http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/sc
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
 	<apikit:config outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" doc:name="Router" doc:id="27f0532a-f0ec-4474-8ccf-ba8cff8ccad8" name="weather-sapi-config" api="resource::b1c16c15-55a4-4b53-82a0-3cda1e356271:weather-sapi:1.0.0:raml:zip:weather-sapi.raml" />
-	<configuration-properties doc:name="Configuration properties" doc:id="577af503-8aa9-4b80-afc4-8c773f237da1" file="props/${mule.env}-properties.yaml" />
+	<configuration-properties doc:name="Configuration properties" doc:id="577af503-8aa9-4b80-afc4-8c773f237da1" file="/props/${mule.env}-properties.yaml" />
 	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="09dcd790-11a2-468a-972b-3ab547ad0d9a" flowRef="weather-sapi-main" />
-	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="787b3f7c-d483-4855-a73d-a027814d3c05" file="props/${mule.env}-secure-properties.yaml" key="${secure-mule.key}" >
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="787b3f7c-d483-4855-a73d-a027814d3c05" file="/props/${mule.env}-secure-properties.yaml" key="${secure-mule.key}" >
 		<secure-properties:encrypt algorithm="Blowfish" />
 	</secure-properties:config>
 </mule>
