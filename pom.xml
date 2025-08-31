@@ -4,13 +4,13 @@
 
 	<groupId>b1c16c15-55a4-4b53-82a0-3cda1e356271</groupId>
 	<artifactId>sapi-weather-app</artifactId>
-	<version>1.0.12</version>
+	<version>1.0.13</version>
 	<packaging>mule-application</packaging>
 
 	<parent>
 		<groupId>com.esgi.mule</groupId>
 		<artifactId>mule-parent-pom</artifactId>
-		<version>1.0.7</version>
+		<version>1.0.9</version>
 	</parent>
 
 	<name>sapi-weather-app</name>
