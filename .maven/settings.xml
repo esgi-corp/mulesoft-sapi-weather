@@ -8,20 +8,21 @@
   <servers>
     <!-- server for publishing API artifact on Exchange -->
     <server>
-      <id>Repository</id> <!-- make sure this matches the serverId property in pom.xml -->
+      <id>Repository</id>
       <username>~~~Client~~~</username>
-      <password>${client.id}~?~${client.secret}</password> <!-- these come from the build.yml and your github secrets -->
+      <password>${client.id}~?~${client.secret}</password>
     </server>
 
-    <!-- server for consuming mvn artifact -->
+    <!-- server for consuming parent-pom artifact -->
     <server>
-      <id>github-mule-parent-pom</id> <!-- Doit correspondre à celui dans <distributionManagement> -->
+      <id>github-mule-parent-pom</id>
       <username>${git.username}</username>
       <password>${pat.token}</password>
     </server>
+
     <!-- server for publishing API artifact on github -->
     <server>
-      <id>github-mule-assets</id> <!-- Doit correspondre à celui dans <distributionManagement> -->
+      <id>github-mule-assets</id>
       <username>${git.username}</username>
       <password>${pat.token}</password>
     </server>
