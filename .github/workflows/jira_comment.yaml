@@ -18,11 +18,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Login
+        uses: atlassian/gajira-login@master
+        env:
+            JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+            JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+            JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+            
       - name: Add comment to JIRA ticket
         uses: atlassian/gajira-comment@v3
         with:
           issue: ${{ github.event.inputs.jira_ticket }}
           comment: 'Push comment test successful!'
-          jiraHost: ${{ secrets.JIRA_BASE_URL }}
-          jiraUserEmail: ${{ secrets.JIRA_USER_EMAIL }}
-          jiraApiToken: ${{ secrets.JIRA_API_TOKEN }}
