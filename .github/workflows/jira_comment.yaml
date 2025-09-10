@@ -1,0 +1,29 @@
+name: Jira Comment
+run-name: Add comment to JIRA ticket ${{ github.event.inputs.jira_ticket }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to deploy'
+        required: true
+        default: 'main'
+      jira_ticket:
+        description: 'Jira ticket number'
+        required: false
+        default: ''
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add comment to JIRA ticket
+        uses: atlassian/gajira-comment@v3
+        with:
+          issue: ${{ github.event.inputs.jira_ticket }}
+          comment: 'Push comment test successful!'
+        # env:
+        #   JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        #   JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+        #   JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
