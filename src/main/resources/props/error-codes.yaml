@@ -1,0 +1,49 @@
+error:
+  any: 
+    code: "SAPI-S001" # Code for undhandled exception
+    sendNotification: "true"
+    description: "global_error_message"
+  badRequest:
+    code: "SAPI-C001" # Bad Request or missing parameters from Client Request
+    sendNotification: "false"
+  notFound:
+    code: "SAPI-C002" # Resource not found or available from the server
+    sendNotification: "false"
+  notAllowed:
+    code: "SAPI-C003" # Client request is not allowed on the API/Application
+    sendNotification: "false"    
+  notAcceptable:
+    code: "SAPI-C004" # Client request is not acceptable on the API/Application
+    sendNotification: "false" 
+  forbidden:
+    code: "SAPI-C020" # Client request is not responding on the API/Application
+    sendNotification: "false"     
+  unsupportedMediaType:
+    code: "SAPI-C005" # Client\'s payload is not supported by the API
+    sendNotification: "false"
+  resourceUnavaiable:
+    code: "SAPI-C006" # Resource not available currently
+    sendNotification: "false"           
+  notImplemented:
+    code: "SAPI-S006" # Client is accessing a not implemented functionalities
+    sendNotification: "false"      
+  invalidCredentials:
+    code: "SAPI-C020" # Credential provided are invalid or not working
+    sendNotification: "false"
+  UnprocessableEntity:
+    code: "SAPI-C020" # Credential provided are invalid or not working
+    sendNotification: "false"
+  dbTranscoConnectivity:
+    code: "SAPI-S100" # API could not connect to the database, due to credentials issue or server is not reachable
+    sendNotification: "true"
+  dbTranscoBadSQLSyntax:
+    code: "SAPI-S101" # Check SQL Syntax
+    sendNotification: "true"
+  HTTPS:     
+    BAD_REQUEST:
+       code: "SAPI-C002" # bad request error
+       sendNotification: "false"
+    ANY:
+      code: "SAPI-C003" # Technical error
+      sendNotification: "false"    
+    

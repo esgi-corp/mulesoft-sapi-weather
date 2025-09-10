@@ -38,17 +38,7 @@ payload]]></ee:set-payload>
 				</ee:transform>
 			</when>
 			<otherwise >
-				<ee:transform doc:name="display error not found" doc:id="b76e533f-3c7f-41ec-aaaa-8e51ded89d87" >
-					<ee:message >
-						<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-{
-	"code": "404",
-	"desctiption": "coordinates not found"
-}]]></ee:set-payload>
-					</ee:message>
-				</ee:transform>
+				<flow-ref doc:name="Raise error coordinates not found" doc:id="72ef24a1-dd86-47b2-8d9b-27f3ebd10654" name="coordinates-notfound" />
 			</otherwise>
 		</choice>
 	</sub-flow>
