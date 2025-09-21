@@ -19,29 +19,17 @@
 			</ee:message>
 			<ee:variables >
 				<ee:set-variable variableName="baseUrl" ><![CDATA["http://api.openweathermap.org/geo/1.0/direct?q=" ++ attributes.uriParams.'city' ++ "&appid=" ++ p('secure::openWeatherApi.appid')]]></ee:set-variable>
+				<ee:set-variable variableName="httpMethod" ><![CDATA[%dw 2.0
+output application/json
+---
+attributes.method]]></ee:set-variable>
+				<ee:set-variable variableName="requestUri" ><![CDATA[%dw 2.0
+output application/json
+---
+attributes.requestUri]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
 		<flow-ref doc:name="getWeatherCity SubFlow" doc:id="28eaf71c-8c75-432d-ae48-aaecab9f1779" name="getWeatherCitySub_Flow"/>
-		<ee:transform doc:name="Build Log JSON" doc:id="71f48bcb-3a00-4116-87e4-b5a116e105e5">
-    <ee:message>
-    </ee:message>
-			<ee:variables >
-				<ee:set-variable variableName="log_message" ><![CDATA[%dw 2.0
-output application/json
----
-{
-  "@timestamp": now(),
-  "application_name": "sapi-weather-app-" ++ p('mule.env'),
-  "environment": p('mule.env'), 
-  "request_uri": vars.baseUrl,
-  "body_input": vars.inputRequest default null,
-  "body_output": payload,
-  "correlation_id": correlationId,
-  "http_code": attributes.statusCode,
-  "method": "GET"
- }     ]]></ee:set-variable>
-			</ee:variables>
-</ee:transform>
 
 <flow-ref name="log-to-elastic" targetValue="#[vars.log_message]" doc:name="Flow to log to platform"/>
 		<error-handler ref="error-handling-app" />

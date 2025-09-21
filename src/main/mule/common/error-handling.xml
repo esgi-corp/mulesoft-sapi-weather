@@ -296,26 +296,6 @@ p('error.any.description')]]></ee:set-variable>
 				<ee:set-payload resource="error_dwl/errorResponse.dwl" />
 			</ee:message>
 		</ee:transform>
-		<ee:transform doc:name="Build Log JSON" doc:id="ef293b26-b2da-4057-aad3-f2d22c854a89" >
-			<ee:message >
-			</ee:message>
-			<ee:variables >
-				<ee:set-variable variableName="log_message" ><![CDATA[%dw 2.0
-output application/json
----
-{
-  "@timestamp": now(),
-  "application_name": "sapi-weather-app-" ++ p('mule.env'),
-  "environment": p('mule.env'), 
-  "request_uri": vars.baseUrl,
-  "body_input": vars.inputRequest default null,
-  "body_output": payload,
-  "correlation_id": correlationId,
-  "http_code": vars.httpStatus,
-  "method": "GET"
- }     ]]></ee:set-variable>
-			</ee:variables>
-		</ee:transform>
 		<flow-ref doc:name="Send logs to platform" doc:id="2aab79b4-8bf0-44a6-83fc-f8965a5a1a57" name="log-to-elastic"/>
 	</sub-flow>
 	<sub-flow name="coordinates-notfound" doc:id="9325485e-2a01-4a89-a0f4-388b573a8dda" doc:description="Coordinates not found" >
