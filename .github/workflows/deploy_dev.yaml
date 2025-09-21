@@ -3,6 +3,11 @@ run-name: Deploy tag ${{ github.ref_name }} to Dev
 
 on:
   workflow_dispatch:
+    inputs:
+      jira_ticket:
+          description: 'JIRA ticket number'
+          required: false
+          default: ''
 
 jobs:
   deploy_api:
@@ -10,6 +15,7 @@ jobs:
     with:
       env: dev
       branch: ${{ github.ref_name }}
+      jira_ticket: ${{ github.event.inputs.jira_ticket }}
       workers: ${{ vars.WORKERS }}
       vcores: ${{ vars.VCORES }} 
       app_name: "sapi-weather-app"

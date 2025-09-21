@@ -1,2 +1,5 @@
 openWeatherApi:
   appid: "![l6GJ+munIfZX56B2mVZVJA1QkBpvmVomLv2rdDaXsT6ZL/4SIbPXdA==]"
+  
+kibana:
+  apikey: "![tvR/x5UpCFlO6o5zI9vy6pRKmG3rwkIU2cdwv4TGBfkNkNMKM0lTDrWYHoUFTlph7BOYARY5R5nmZ2eP1FHdkg==]"

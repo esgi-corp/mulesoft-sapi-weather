@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="log-to-elastic" doc:id="d54381fa-4412-4dc4-a442-3d8c42c6426a" >
+		<http:request method="POST" doc:name="Send Logs to platform" doc:id="c4a5ed98-d832-4045-8870-b62691aeaeb3" url="https://9e65aedabbc64884907540a9b26bcd62.us-central1.gcp.cloud.es.io:443/esgi-mule-logs/_doc" sendCorrelationId="AUTO" target="log_message">
+			<http:body ><![CDATA[#[vars.log_message]]]></http:body>
+			<http:headers><![CDATA[#[output application/java
+---
+{
+	"Authorization" : "ApiKey " ++ p('secure::kibana.apikey'),
+	"Content-Type" : "application/json"
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
+	
+
+</mule>
