@@ -4,7 +4,7 @@
 
 	<groupId>b1c16c15-55a4-4b53-82a0-3cda1e356271</groupId>
 	<artifactId>sapi-weather-app</artifactId>
-	<version>1.0.17</version>
+	<version>1.0.18</version>
 	<packaging>mule-application</packaging>
 
 	<parent>
