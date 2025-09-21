@@ -164,134 +164,6 @@ p('error.unsupportedMediaType.code')]]></ee:set-variable>
 			</ee:transform>
 			<flow-ref doc:name="error-handling:\response" doc:id="37e7525c-c13e-4d6f-8fa4-8b0bc3d9a194" name="error-handling:\response" />
 		 </on-error-propagate>
-<!-- 		<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="2d57b601-421a-4517-a38b-4a9e1731b557" type="REQUEST_APP_ERROR:BAD_TREATMENT"> -->
-<!-- 			<flow-ref doc:name="already-defined-error-handling:\response" doc:id="4bd8d88b-852f-490e-996d-2eeba509b0c4" name="already-defined-error-handling:\response" /> -->
-<!-- 		</on-error-continue>		 -->
-
-		<!-- <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="8a2017ed-9447-40d5-ae84-858242bb92b8" type="MULE:UNKNOWN"> 
-			 <choice doc:name="Choice for error handling" doc:id="bc3e8ca9-ebc6-49c8-ad40-53617d69fde5" >
-				<when expression="#[error.muleMessage.typedAttributes.statusCode ==415]">
-					<ee:transform doc:name="Set HTTP Status = 415 &amp; errCode" doc:id="7529cf0a-7eb9-4c07-baea-1c1da249bd8d">
-				<ee:message />
-				<ee:variables>
-					<ee:set-variable variableName="httpStatus"><![CDATA[%dw 2.0
-output application/java
--&#45;&#45;
-415]]></ee:set-variable>
-					<ee:set-variable variableName="errCode"><![CDATA[%dw 2.0
-output application/java
--&#45;&#45;
-p('error.unsupportedMediaType.code')]]></ee:set-variable>
-				</ee:variables>
-			</ee:transform>
-					<ee:transform doc:name="Set Error Response" doc:id="0300e876-6d33-41cf-a36c-5517ee0af1b0" >
-						<ee:message >
-							<ee:set-payload resource="dwl/unsupported-errorresponse.dwl" />
-						</ee:message>
-					</ee:transform>
-				</when>
-				<when expression="#[error.muleMessage.typedAttributes.statusCode ==404]">
-					<ee:transform doc:name="Set HTTP Status = 404 &amp; errCode" doc:id="457c9166-8756-418e-bbc3-4df7896277e4">
-				<ee:message />
-				<ee:variables>
-					<ee:set-variable variableName="httpStatus"><![CDATA[%dw 2.0
-output application/java
--&#45;&#45;
-404]]></ee:set-variable>
-					<ee:set-variable variableName="errCode"><![CDATA[%dw 2.0
-output application/java
--&#45;&#45;
-p('error.notFound.code')]]></ee:set-variable>
-				</ee:variables>
-			</ee:transform>
-					<ee:transform doc:name="Set Error Response" doc:id="c09feaaf-99e1-423f-a079-ed9b628f9abf" >
-						<ee:message >
-							<ee:set-payload resource="dwl/notfound-errorresponse.dwl" />
-						</ee:message>
-					</ee:transform>
-				</when>
-				<when expression="#[error.muleMessage.typedAttributes.statusCode ==401]">
-					<ee:transform doc:name="Set HTTP Status = 401 &amp; errCode" doc:id="3dbc211c-204e-486b-af7b-94f1fb300673">
-				<ee:message />
-				<ee:variables>
-					<ee:set-variable variableName="httpStatus"><![CDATA[%dw 2.0
-output application/java
--&#45;&#45;
-401]]></ee:set-variable>
-					<ee:set-variable variableName="errCode"><![CDATA[%dw 2.0
-output application/java
--&#45;&#45;
-p('error.notFound.code')]]></ee:set-variable>
-				</ee:variables>
-			</ee:transform>
-					<ee:transform doc:name="Set Error Response" doc:id="7217e005-7250-4fb7-ac57-fd768906f9d5" >
-						<ee:message >
-							<ee:set-payload resource="dwl/unauthorized-errorresponse.dwl" />
-						</ee:message>
-					</ee:transform>
-				</when>
-				<when expression="#[error.muleMessage.typedAttributes.statusCode ==400]">
-					<ee:transform doc:name="Set HTTP Status = 400 &amp; errCode" doc:id="8a818a2a-70f6-46e3-9ad8-bd0091c112fa">
-						<ee:message />
-						<ee:variables>
-							<ee:set-variable variableName="httpStatus"><![CDATA[%dw 2.0
-output application/java
--&#45;&#45;
-400 ]]></ee:set-variable>
-							<ee:set-variable variableName="errCode"><![CDATA[%dw 2.0
-output application/java
--&#45;&#45;
-p('error.badRequest.code')]]></ee:set-variable>
-						</ee:variables>
-					</ee:transform>
-					<ee:transform doc:name="Set Error Response" doc:id="5d3dd4bc-cf5e-4c72-9b98-88e711b02b0a">
-						<ee:message>
-							<ee:set-payload resource="dwl/badrequest-errorresponse.dwl" />
-						</ee:message>
-					</ee:transform>
-				</when>
-				<when expression="#[error.muleMessage.typedAttributes.statusCode ==403]">
-					<ee:transform doc:name="Set HTTP Status = 403 &amp; errCode" doc:id="a6be4f39-61ec-43ce-b246-a1fcf56badce">
-				<ee:message />
-				<ee:variables>
-					<ee:set-variable variableName="httpStatus"><![CDATA[%dw 2.0
-output application/java
--&#45;&#45;
-403]]></ee:set-variable>
-					<ee:set-variable variableName="errCode"><![CDATA[%dw 2.0
-output application/java
--&#45;&#45;
-p('error.forbidden.code')]]></ee:set-variable>
-				</ee:variables>
-			</ee:transform>
-					<ee:transform doc:name="Set Error Response" doc:id="829bff03-f16c-43fb-b0b7-043d5b434e43" >
-						<ee:message >
-							<ee:set-payload resource="dwl/forbiddenerrorresponse.dwl" />
-						</ee:message>
-					</ee:transform>
-				</when>
-				<otherwise >
-					<ee:transform doc:name="Set HTTP Status = 500 &amp; errCode" doc:id="1310bd52-4a12-4255-a095-4a8aa94c7eb5" >
-						<ee:message />
-						<ee:variables >
-							<ee:set-variable variableName="httpStatus" ><![CDATA[%dw 2.0
-output application/java
--&#45;&#45;
-500]]></ee:set-variable>
-							<ee:set-variable variableName="errCode" ><![CDATA[%dw 2.0
-output application/java
--&#45;&#45;
-p('error.any.code')]]></ee:set-variable>
-						</ee:variables>
-					</ee:transform>
-					<ee:transform doc:name="Set Error Response" doc:id="9bdc73e3-3af5-4f4d-8b68-d1e6f4a94d8f">
-					<ee:message>
-							<ee:set-payload resource="dwl/error-response.dwl" />
-					</ee:message>
-				</ee:transform>
-				</otherwise>
-			</choice>  
-		</on-error-propagate>  -->
 
 		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="b8060281-0cb8-45aa-8288-dc8d1a102534" type="HTTP:BAD_REQUEST">
 			<ee:transform doc:name="Set HTTP Status = 400 &amp; errCode" doc:id="0cc9dc89-ccfc-4166-9e94-e4581d7381aa">
@@ -394,14 +266,13 @@ p('error.any.description')]]></ee:set-variable>
 	
 </error-handler>
 	
-	
-	
-	<!-- This service is mandatory to create the REQUEST_APP_ERROR:BAD_TREATMENT Error and make the app buildable if no used -->
-	<!-- This service is mandatory to create the SAPI:BAD_REQUEST Error and make the app buildable if no used -->
 	<sub-flow name="error-handling:\response" doc:id="8ca4735a-dfc9-42ab-be4b-149ca250c942" >
 		
 		<set-variable value="#[error.errorMessage.payload]" doc:name="Set errorPayload" doc:id="d768d5b3-2fd1-4291-8135-c38210c6a5ff" variableName="errorPayload" />
-		<choice doc:name="Choice when errorPayload" doc:id="228069d1-786b-4fe1-a6c2-b72f291b8b68" >
+		<flow-ref doc:name="Default Error Response" doc:id="82341c44-655b-46c8-ba8a-24cc069e60c7" name="commonErrorFLow" />
+
+		<!-- This flow is used when backend send native error -->
+		<!-- <choice doc:name="Choice when errorPayload" doc:id="228069d1-786b-4fe1-a6c2-b72f291b8b68" >
 			<when expression="#[!isEmpty(vars.errorPayload.data.errorDetails.fault)]">
 				<choice doc:name="Choice when native error" doc:id="f492f47d-757e-4391-868a-2f21c06cc79a" >
 					<when expression="#[isEmpty(vars.errorPayload.data.errorDetails.fault.arguments.statusCode) and isEmpty(vars.errorPayload.data.errorDetails.fault.arguments.statusMessage)]">
@@ -416,12 +287,7 @@ p('error.any.description')]]></ee:set-variable>
 					</otherwise>
 				</choice>
 			</when>
-			<otherwise >
-				<flow-ref doc:name="Deafult Error Response" doc:id="82341c44-655b-46c8-ba8a-24cc069e60c7" name="commonErrorFLow" />
-			</otherwise>
-		</choice>
-		
-		
+		</choice> -->
 		
 	</sub-flow>
 	<sub-flow name="commonErrorFLow" doc:id="3862db44-930a-4dba-967b-1f0115636c0b" >
@@ -430,6 +296,27 @@ p('error.any.description')]]></ee:set-variable>
 				<ee:set-payload resource="error_dwl/errorResponse.dwl" />
 			</ee:message>
 		</ee:transform>
+		<ee:transform doc:name="Build Log JSON" doc:id="ef293b26-b2da-4057-aad3-f2d22c854a89" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="log_message" ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "@timestamp": now(),
+  "application_name": "sapi-weather-app-" ++ p('mule.env'),
+  "environment": p('mule.env'), 
+  "request_uri": vars.baseUrl,
+  "body_input": vars.inputRequest default null,
+  "body_output": payload,
+  "correlation_id": correlationId,
+  "http_code": vars.httpStatus,
+  "method": "GET"
+ }     ]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="Send logs to platform" doc:id="2aab79b4-8bf0-44a6-83fc-f8965a5a1a57" name="log-to-elastic"/>
 	</sub-flow>
 	<sub-flow name="coordinates-notfound" doc:id="9325485e-2a01-4a89-a0f4-388b573a8dda" doc:description="Coordinates not found" >
 		<raise-error doc:name="City not found" doc:id="c146bfc8-6fcd-40bb-8a9b-23450ad65926" doc:description="Coordinates not found" type="APP:COORDINATES_NOT_FOUND" description="Coordinates not found" />
